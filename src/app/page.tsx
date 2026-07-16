@@ -21,12 +21,13 @@ import {
   Database,
   Layout,
   Cloud,
+  CheckCircle2,
+  Copy,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-// --- Animation Variants ---
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -42,13 +43,11 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      // Add 'as [number, number, number, number]' to satisfy the Easing type
       ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
     },
   },
 };
 
-// --- Data ---
 const services = [
   { name: "Website Development", icon: Globe },
   { name: "Web Applications", icon: Layers3 },
@@ -80,6 +79,16 @@ const processSteps = [
   "Support",
 ];
 
+const personal = [
+  { label: "Phone", value: "0763513533" },
+  { label: "Email", value: "nimsaraperera32@gmail.com" },
+  {
+    label: "GitHub",
+    value: "https://github.com/SHASHiYA32",
+  },
+  { label: "Portfolio", value: "devdynamo.vercel.app" },
+];
+
 const projects = [
   {
     title: "Personal Finance Tracker",
@@ -87,15 +96,43 @@ const projects = [
     link: "https://personal-finance-tracker-psi-six.vercel.app/",
   },
   {
-    title: "Task Management System",
+    title: "TODO System",
     tech: "React/Tailwind",
-    link: "https://task-manage-gold.vercel.app/",
+    link: "https://next-js-todo-app-gamma-five.vercel.app/",
   },
 ];
 
 export default function DevDynamoPage() {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [toast, setToast] = useState<{ message: string } | null>(null);
+
+  const copyToClipboard = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    setToast({ message: `${label} copied!` });
+    setTimeout(() => setToast(null), 2000);
+  };
+
   return (
     <main className="min-h-screen bg-[#050509] text-white selection:bg-blue-500/30 overflow-x-hidden">
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: -50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.9 }}
+            className="fixed top-10 right-10 z-[100] flex items-center gap-3 bg-[#1c1c1e]/80 backdrop-blur-xl border border-white/10 text-white px-5 py-3 rounded-2xl shadow-2xl"
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 300 }}
+            >
+              <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+            </motion.div>
+            <span className="font-medium text-sm">{toast.message}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* --- Enhanced Background --- */}
       <div className="fixed inset-0 z-0 bg-[#050509]">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]"></div>
@@ -108,7 +145,7 @@ export default function DevDynamoPage() {
 
       <div className="relative z-10">
         {/* --- 1. Hero Section --- */}
-        <section className="h-screen flex flex-col justify-center items-center text-center px-4 relative">
+        <section className="min-h-screen flex flex-col justify-center items-center text-center px-4 relative py-20">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -117,41 +154,84 @@ export default function DevDynamoPage() {
           >
             <Badge
               variant="outline"
-              className="border-blue-500/30 text-blue-300 bg-blue-500/10 backdrop-blur-sm px-4 py-1.5 rounded-full"
+              className="border-blue-500/30 text-blue-300 bg-blue-500/10 backdrop-blur-sm px-4 py-1.5 rounded-full animate-pulse"
             >
               Available for new projects
             </Badge>
 
-            <h1 className="text-6xl md:text-8xl font-extrabold tracking-tighter">
-              <span className="block">We Are</span>
-              <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-white to-emerald-400 pb-2">
+            <div className="text-[54px] gap-5 md:text-8xl font-extrabold tracking-tighter">
+              <span className="block yuyu">We Are</span>
+              <span className="limelight block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-white to-emerald-400 pb-2">
                 DevDynamo.
               </span>
-            </h1>
+            </div>
 
-            <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto font-light">
+            <p className="yuyu text-2xl md:text-3xl text-slate-400 max-w-3xl mx-auto font-light">
               We architect high-performance, stunning digital experiences for
               forward-thinking startups.
             </p>
 
             <motion.div
-              className="flex gap-4 justify-center pt-6"
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
-              <Button className="bg-white text-black hover:bg-slate-200 text-lg px-8 py-6 rounded-full group">
+              <a
+                className="bg-white text-black hover:bg-slate-200 text-lg px-8 py-6 rounded-full group cursor-pointer flex flex-row sm:w-full lg:w-fit h-8 justify-center items-center"
+                href={personal[2].value}
+              >
                 Explore Work
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              </a>
               <Button
                 variant="ghost"
-                className="text-lg text-slate-300 hover:text-white hover:bg-white/5 px-8 py-6 rounded-full"
+                onClick={() => setIsContactOpen(true)}
+                className="yuyu text-3xl font-black text-slate-300 hover:text-white hover:bg-white/10 px-8 py-6 rounded-full cursor-pointer"
               >
                 Contact Us
               </Button>
             </motion.div>
           </motion.div>
+
+          <AnimatePresence>
+            {isContactOpen && (
+              <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                  onClick={() => setIsContactOpen(false)}
+                />
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                  className="relative bg-[#0b0b12] border border-white/10 p-8 rounded-3xl w-full max-w-md shadow-2xl space-y-6"
+                >
+                  <h2 className="text-2xl font-bold">Get In Touch</h2>
+                  <div className="space-y-3">
+                    {personal.map((item) => (
+                      <button
+                        key={item.label}
+                        onClick={() => copyToClipboard(item.value, item.label)}
+                        className="w-full flex justify-between items-center p-4 bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/5"
+                      >
+                        <span className="text-slate-400 pr-3">
+                          {item.label}
+                        </span>
+                        <span className="font-mono text-blue-400 truncate">
+                          {item.value}
+                        </span>
+                        <Copy className="w-4 h-4 text-slate-500 group-hover:text-blue-400 shrink-0" />
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+            )}
+          </AnimatePresence>
 
           {/* Scroll down indicator */}
           <motion.div
@@ -166,15 +246,15 @@ export default function DevDynamoPage() {
         </section>
 
         {/* --- Content Container with Scroll Reveal --- */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={containerVariants}
-          className="max-w-7xl mx-auto px-6 md:px-10 space-y-32 pb-32"
-        >
+        <div className="max-w-7xl mx-auto px-6 md:px-10 space-y-32 pb-32">
           {/* --- 2. About Us & Expertise --- */}
-          <section className="grid md:grid-cols-3 gap-10 items-start">
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+            className="mt-30 grid md:grid-cols-3 gap-10 items-start"
+          >
             <motion.div
               variants={itemVariants}
               className="md:col-span-1 sticky top-10"
@@ -182,7 +262,7 @@ export default function DevDynamoPage() {
               <h2 className="text-4xl font-bold tracking-tight">
                 Crafting digital excellence
               </h2>
-              <p className="text-slate-400 mt-4">
+              <p className="text-slate-400 mt-4 yuyu text-3xl">
                 Based in Sri Lanka, we are a collective of passionate developers
                 and designers obsessed with clean code and user experience.
               </p>
@@ -204,21 +284,28 @@ export default function DevDynamoPage() {
                     className="w-10 h-10 text-blue-400 mb-4 opacity-70 group-hover:opacity-100 transition-opacity"
                     strokeWidth={1.5}
                   />
-                  <h3 className="text-xl font-semibold">{service.name}</h3>
+                  <h3 className="sm:text-sm xl:text-2xl font-semibold">
+                    {service.name}
+                  </h3>
                 </motion.div>
               ))}
             </motion.div>
-          </section>
+          </motion.section>
 
-          {/* --- 3. Technologies (Updated to Glassy Cards) --- */}
-          <section className="space-y-12">
+          {/* --- 3. Technologies --- */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+            className="space-y-12"
+          >
             <motion.h2
               variants={itemVariants}
               className="text-4xl font-bold tracking-tight text-center"
             >
               Tech Stack Arsenal
             </motion.h2>
-
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {technologies.map((tech) => (
                 <motion.div
@@ -240,20 +327,23 @@ export default function DevDynamoPage() {
                 </motion.div>
               ))}
             </div>
-          </section>
+          </motion.section>
 
-          {/* --- 4. Development Process (Animated Timeline) --- */}
-          <section className="space-y-12">
+          {/* --- 4. Development Process --- */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+            className="space-y-12"
+          >
             <motion.h2
               variants={itemVariants}
               className="text-4xl font-bold tracking-tight text-center"
             >
               The DevDynamo Way
             </motion.h2>
-            <motion.div
-              variants={containerVariants}
-              className="grid grid-cols-2 md:grid-cols-7 gap-4"
-            >
+            <div className="grid grid-cols-2 md:grid-cols-7 gap-4">
               {processSteps.map((step, index) => (
                 <motion.div
                   key={step}
@@ -264,18 +354,22 @@ export default function DevDynamoPage() {
                     {index + 1}
                   </div>
                   <h4 className="font-semibold text-lg">{step}</h4>
-
-                  {/* Connecting Line (hidden on mobile) */}
                   {index < processSteps.length - 1 && (
                     <div className="hidden md:block absolute top-8 left-[60%] w-full h-0.5 bg-slate-700 -z-0" />
                   )}
                 </motion.div>
               ))}
-            </motion.div>
-          </section>
+            </div>
+          </motion.section>
 
-          {/* --- 5. Why Choose Us (Glass Cards) --- */}
-          <section className="grid md:grid-cols-3 gap-6">
+          {/* --- 5. Why Choose Us --- */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+            className="grid md:grid-cols-3 gap-6"
+          >
             {[
               {
                 title: "Clean Code",
@@ -300,21 +394,33 @@ export default function DevDynamoPage() {
                       className="w-12 h-12 text-emerald-400"
                       strokeWidth={1}
                     />
-                    <h3 className="w-fit text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-emerald-100">{item.title}</h3>
+                    <h3 className="w-fit text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-emerald-100">
+                      {item.title}
+                    </h3>
                     <p className="text-slate-400">{item.desc}</p>
                   </CardContent>
                 </Card>
               </motion.div>
             ))}
-          </section>
+          </motion.section>
 
           {/* --- 6. Portfolio --- */}
-          <section className="space-y-10">
+          <motion.section
+            id="portfolio"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+            className="space-y-10"
+          >
             <motion.h2
               variants={itemVariants}
               className="text-4xl font-bold tracking-tight"
             >
-              Featured Builds
+              Featured Builds{" "}
+              <span className="inline-block text-slate-400 yuyu text-2xl font-light">
+                (maybe still developing)
+              </span>
             </motion.h2>
             <div className="grid md:grid-cols-2 gap-8">
               {projects.map((project) => (
@@ -330,9 +436,11 @@ export default function DevDynamoPage() {
                     className="block group"
                   >
                     <div className="aspect-[16/10] rounded-3xl bg-slate-800 border border-white/10 overflow-hidden relative mb-4">
-                      {/* Placeholder for screenshot - replace with actual img tag */}
                       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-black flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                        <Globe className="w-20 h-20 text-slate-700 group-hover:text-blue-500/50 transition-colors" />
+                        <iframe
+                          src={project.link}
+                          className="w-full h-[500px] border-none rounded-2xl pointer-events-none"
+                        />
                       </div>
                       {/* Glass overlay on hover */}
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 backdrop-blur-sm transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -349,10 +457,13 @@ export default function DevDynamoPage() {
                 </motion.div>
               ))}
             </div>
-          </section>
+          </motion.section>
 
           {/* --- 7. Contact Footer --- */}
           <motion.footer
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
             variants={itemVariants}
             className="border-t border-white/10 pt-20 mt-20 grid md:grid-cols-3 gap-12 bg-white/[0.02] p-10 rounded-[2rem] border"
           >
@@ -368,34 +479,34 @@ export default function DevDynamoPage() {
                 href="mailto:devdynamo@dev.com"
                 className="flex items-center gap-3 hover:text-blue-400 w-fit"
               >
-                <Mail size={20} /> devdynamo@dev.com
+                <Mail size={20} /> {personal[1].value}
               </a>
               <a
                 href="tel:0761234567"
                 className="flex items-center gap-3 hover:text-blue-400 w-fit"
               >
-                <Phone size={20} /> 076 123 4567
+                <Phone size={20} /> {personal[0].value}
               </a>
             </div>
 
             <div className="flex gap-4 items-start md:justify-end">
               <motion.a
                 whileHover={{ scale: 1.1 }}
-                href="#"
+                href={personal[2].value}
                 className="p-3 bg-white/5 rounded-full hover:bg-white/10"
               >
                 <GitBranchPlus />
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.1 }}
-                href="#"
+                href="#portfolio"
                 className="p-3 bg-white/5 rounded-full hover:bg-white/10"
               >
                 <Globe />
               </motion.a>
             </div>
           </motion.footer>
-        </motion.div>
+        </div>
       </div>
     </main>
   );

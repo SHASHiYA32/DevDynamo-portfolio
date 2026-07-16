@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Yuyu&display=swap');
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -115,16 +117,48 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme {
+  --font-borel: var(--font-borel);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply font-sans bg-background text-foreground;
+    font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   }
+
   html {
     @apply font-sans;
   }
+}
+
+.poppins {
+  font-family: var(--font-poppins);
+}
+
+.borel {
+  font-family: var(--font-borel);
+}
+
+.yuyu {
+  font-family: "Yuyu", cursive;
+}
+
+.moirai {
+  font-family: var(--font-moirai);
+}
+
+.birthstone {
+  font-family: var(--font-birthstone);
+}
+
+.limelight {
+  font-family: var(--font-limelight);
 }
