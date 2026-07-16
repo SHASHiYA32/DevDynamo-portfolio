@@ -102,6 +102,32 @@ const projects = [
   },
 ];
 
+const teamMembers = [
+  {
+    name: "Nimsara Perera",
+    role: "Full-stack Developer",
+    about:
+      "Specializes in building high-performance web applications with a focus on clean, scalable architecture and modern design patterns.",
+    skills: ["React", "Next.js", "TypeScript", "php", "Tailwind CSS", "HTML", "CSS", "JavaScript"],
+    photo: "/team/nimsara.png",
+  },
+  {
+    name: "John Doe",
+    role: "Full-stack Developer",
+    about:
+      "Expert in backend infrastructure and API development, dedicated to creating robust systems that power seamless user experiences.",
+    skills: ["React", "Next.js", "TypeScript"],
+    photo: "/team/img1.webp",
+  },
+  {
+    name: "Jane Smith",
+    role: "Testing Engineer",
+    about: "A detail-oriented QA engineer who believes that quality is not an act, but a habit. Jane ensures every pixel and function is polished to perfection before deployment.",
+    skills: ["React", "Next.js", "TypeScript"],
+    photo: "/team/img2.avif",
+  },
+];
+
 export default function DevDynamoPage() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [toast, setToast] = useState<{ message: string } | null>(null);
@@ -290,6 +316,55 @@ export default function DevDynamoPage() {
                 </motion.div>
               ))}
             </motion.div>
+          </motion.section>
+
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+            className="space-y-12"
+          >
+            <h2 className="text-4xl font-bold text-center">Meet the Team</h2>
+
+            <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-8 max-w-8xl mx-auto">
+              {teamMembers.map((member) => (
+                <motion.div
+                  key={member.name}
+                  variants={itemVariants}
+                  className="bg-white/5 border border-white/10 p-6 rounded-3xl backdrop-blur-lg flex flex-col items-center text-center gap-4 hover:border-blue-500/30 transition-all"
+                >
+                  {/* Photo Container */}
+                  <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-white/10">
+                    <img
+                      src={member.photo}
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  {/* Info */}
+                  <div className="space-y-1">
+                    <h3 className="text-2xl font-bold">{member.name}</h3>
+                    <p className="text-blue-400 font-medium">{member.role}</p>
+                  </div>
+
+                  <p className="text-slate-400 text-sm">{member.about}</p>
+
+                  {/* Skills */}
+                  <div className="flex gap-2 flex-wrap justify-center mt-2">
+                    {member.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="px-3 py-1 bg-white/5 rounded-full text-xs text-slate-300 border border-white/5 hover:bg-amber-400/10 hover:border-amber-400/50 cursor-pointer transition-all"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.section>
 
           {/* --- 3. Technologies --- */}
