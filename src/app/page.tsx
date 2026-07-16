@@ -86,7 +86,7 @@ const personal = [
     label: "GitHub",
     value: "https://github.com/SHASHiYA32",
   },
-  { label: "Portfolio", value: "devdynamo.vercel.app" },
+  { label: "Portfolio", value: "https://dev-dynamo-official.vercel.app/" },
 ];
 
 const projects = [
