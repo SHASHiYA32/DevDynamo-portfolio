@@ -130,13 +130,12 @@ const teamMembers = [
     position: "Founder"
   },
   {
-    name: "Ƙaushal Bandara",
+    name: "Kaushal Bandara",
     role: "Full-stack Developer",
     about:
-      "Expert in backend infrastructure and API development, dedicated to creating robust systems that power seamless user experiences.",
-    skills: ["React", "Next.js", "TypeScript"],
-    photo: "/team/img1.webp",
-    position: "co-founder"
+      "Builds scalable web and mobile apps. Combines secure backends with hardware integration to connect physical devices to responsive digital interfaces.",
+    skills: ["Java","JavaScript",  "TypeScript","React", "Next.js",  "C", "C++", "Python", "Dart"],
+    photo: "/team/Bkaushal.JPG",
   },
   {
     name: "Ahamed Rifan",
