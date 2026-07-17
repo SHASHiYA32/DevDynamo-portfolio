@@ -139,6 +139,36 @@
   }
 }
 
+.logosvg,
+.cls-1, .cls-2, .cls-3{
+  /* stroke: white !important;
+  fill: white; */
+  filter: invert();
+}
+@media (max-width: 600px){
+  .logosvg{
+    transform: translateY(70dvh) scale(2.9);
+  }
+}
+
+@media (max-width: 800px){
+  .logosvg{
+    transform: translateY(68dvh) scale(2.5);
+  }
+}
+
+@media (max-width: 1400px){
+  .logosvg{
+    transform: translateY(68dvh) scale(2.5);
+  }
+}
+
+@media (min-width: 1400px){
+  .logosvg{
+    transform: translateY(0) scale(1);
+  }
+}
+
 .poppins {
   font-family: var(--font-poppins);
 }

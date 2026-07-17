@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-width: 5px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+	stroke: #000;
+	fill: none;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        stroke-width: 10px;
+      }
+
+      .cls-3 {
+        stroke-width: 8px;
+      }
+    </style>
+  </defs>
+  <circle class="cls-3" cx="346" cy="197" r="9.5"/>
+  <circle class="cls-3" cx="250" cy="142" r="9.5"/>
+  <circle class="cls-1" cx="250" cy="253" r="9.5"/>
+  <circle class="cls-1" cx="319" cy="250" r="9.5"/>
+  <circle class="cls-1" cx="286" cy="194" r="9.5"/>
+  <circle class="cls-1" cx="214" cy="194" r="9.5"/>
+  <circle class="cls-1" cx="181" cy="250" r="9.5"/>
+  <circle class="cls-1" cx="217" cy="313" r="9.5"/>
+  <circle class="cls-1" cx="284" cy="313" r="9.5"/>
+  <circle class="cls-3" cx="155" cy="308" r="9.5"/>
+  <circle class="cls-3" cx="155" cy="197" r="9.5"/>
+  <circle class="cls-3" cx="346" cy="308" r="9.5"/>
+  <circle class="cls-3" cx="250" cy="364" r="9.5"/>
+  <polyline class="cls-2" points="163 191 241 145 241 145 241 145 241 145"/>
+  <polyline class="cls-2" points="346 207 345 298 345 298 345 298 345 298"/>
+  <polyline class="cls-2" points="249.71 262.68 249.45 353.44 249.45 353.44 249.45 353.44 249.45 353.44"/>
+  <polyline class="cls-2" points="154 206 153 299 153 299 153 299 153 299"/>
+  <polyline class="cls-2" points="258 359 338 313 338 313 338 313 338 313"/>
+  <polyline class="cls-2" points="258 248 338 202 338 202 338 202 338 202"/>
+  <polyline class="cls-2" points="162 314 241 361 241 361 241 361 241 361"/>
+  <polyline class="cls-2" points="162 201 241 247 241 247 241 247 241 247"/>
+  <polyline class="cls-2" points="259 146 338 192 338 192 338 192 338 192"/>
+  <line class="cls-1" x1="244.13" y1="149.46" x2="219.24" y2="186.08"/>
+  <line class="cls-1" x1="255.87" y1="149.46" x2="280.76" y2="186.08"/>
+  <line class="cls-1" x1="164" y1="308.94" x2="208.14" y2="312.41"/>
+  <line class="cls-1" x1="158.18" y1="298.74" x2="177.67" y2="258.98"/>
+  <line class="cls-1" x1="341.71" y1="300.21" x2="323.22" y2="259.98"/>
+  <line class="cls-1" x1="335.64" y1="310.26" x2="291.43" y2="312.63"/>
+</svg>

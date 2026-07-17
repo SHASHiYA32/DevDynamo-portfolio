@@ -22,6 +22,15 @@ import {
   Cloud,
   CheckCircle2,
   Copy,
+  Code,
+  GraduationCap,
+  BadgeCheck,
+  Handshake,
+  CircleUserRound,
+  Rocket,
+  Smartphone,
+  ArrowUpRight,
+  CodeXml,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -107,23 +116,63 @@ const teamMembers = [
     role: "Full-stack Developer",
     about:
       "Specializes in building high-performance web applications with a focus on clean, scalable architecture and modern design patterns.",
-    skills: ["React", "Next.js", "TypeScript", "php", "Tailwind CSS", "HTML", "CSS", "JavaScript"],
+    skills: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "php",
+      "Tailwind CSS",
+      "HTML",
+      "CSS",
+      "JavaScript",
+    ],
     photo: "/team/nimsara.png",
+    position: "Founder"
   },
   {
-    name: "John Doe",
+    name: "Ƙaushal Bandara",
     role: "Full-stack Developer",
     about:
       "Expert in backend infrastructure and API development, dedicated to creating robust systems that power seamless user experiences.",
     skills: ["React", "Next.js", "TypeScript"],
     photo: "/team/img1.webp",
+    position: "co-founder"
   },
   {
-    name: "Jane Smith",
-    role: "Testing Engineer",
-    about: "A detail-oriented QA engineer who believes that quality is not an act, but a habit. Jane ensures every pixel and function is polished to perfection before deployment.",
+    name: "Ahamed Rifan",
+    role: "Testing Engineer, UI/UX Designer",
+    about:
+      "A detail-oriented QA engineer who believes that quality is not an act, but a habit. Jane ensures every pixel and function is polished to perfection before deployment.",
     skills: ["React", "Next.js", "TypeScript"],
     photo: "/team/img2.avif",
+    position: "co-founder"
+  },
+];
+
+const serviceItems = [
+  {
+    title: "Web Development",
+    desc: "Corporate, WordPress, WooCommerce, and Shopify platforms that convert at enterprise scale.",
+    icon: Globe,
+    image: "/services/1784276448594.png",
+  },
+  {
+    title: "Mobile Apps",
+    desc: "Native iOS, Android, Flutter, and React Native apps built for enterprise performance and user adoption.",
+    icon: Smartphone,
+    image: "/services/1784276750112.png",
+  },
+  {
+    title: "Software & Web apps",
+    desc: "Transforming complex business requirements into high-performance web applications and custom software solutions designed for growth and scalability.",
+    icon: CodeXml,
+    image: "/services/1784276836692.png",
+  },
+  {
+    title: "Hosting, Cloud, & Maintenance",
+    desc: "Full-stack cloud management, 24/7 uptime monitoring, and dedicated maintenance to keep your enterprise infrastructure secure and scalable.",
+    icon: Cloud,
+    image: "/services/1784276933201.png",
   },
 ];
 
@@ -131,7 +180,22 @@ export default function DevDynamoPage() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [toast, setToast] = useState<{ message: string } | null>(null);
 
-  const icons = [Mail, Phone, Globe, Zap, ShieldCheck];
+  const icons = [
+    Mail,
+    Phone,
+    Globe,
+    Zap,
+    ShieldCheck,
+    Rocket,
+    CircleUserRound,
+    Handshake,
+    BadgeCheck,
+    GraduationCap,
+    Code,
+    Database,
+    Cloud,
+    GitBranchPlus,
+  ];
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -168,6 +232,12 @@ export default function DevDynamoPage() {
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/30 rounded-full blur-[120px] animate-pulse"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-600/30 rounded-full blur-[120px] animate-pulse delay-700"></div>
         <div className="absolute top-[40%] left-[40%] w-[30%] h-[30%] bg-purple-600/20 rounded-full blur-[120px] animate-pulse delay-1000"></div>
+        <img
+          src="/logo/DevDynamo.svg"
+          itemType="svg"
+          alt="DevDynamo"
+          className="opacity-5 logosvg "
+        />
       </div>
 
       <div className="relative z-10">
@@ -319,7 +389,7 @@ export default function DevDynamoPage() {
             </motion.div>
           </motion.section>
 
-          <div className="w-full overflow-hidden bg-transparent py-10">
+          <div className="w-full overflow-hidden bg-transparent">
             <div className="flex [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
               <motion.div
                 animate={{ x: ["0%", "-50%"] }}
@@ -355,6 +425,9 @@ export default function DevDynamoPage() {
                   variants={itemVariants}
                   className="bg-white/5 border border-white/10 p-6 rounded-3xl backdrop-blur-lg flex flex-col items-center text-center gap-4 hover:border-blue-500/30 transition-all"
                 >
+                  <div className="w-full flex flex-col items-end px-2 text-sm">
+                    <span className="border border-yellow-400 text-yellow-300 bg-amber-300/10 px-3 rounded-2xl ">{member.position}</span>
+                  </div>
                   {/* Photo Container */}
                   <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-white/10">
                     <img
@@ -498,6 +571,64 @@ export default function DevDynamoPage() {
                 </Card>
               </motion.div>
             ))}
+          </motion.section>
+
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+            className="space-y-10 flex flex-col"
+          >
+            <span className="w-fit text-purple-300 bg-purple-500/10 border border-purple-500 backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
+              services
+            </span>
+            <motion.h1
+              variants={itemVariants}
+              className="text-4xl font-bold tracking-tight"
+            >
+              All your Enterprise needs, <br /> in one{" "}
+              <span className="limelight uppercase text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
+                place
+              </span>
+            </motion.h1>
+
+            <div className="grid md:grid-cols-2 gap-6 max-w-7xl sm:grid-cols-1 mx-auto py-10">
+              {serviceItems.map((service, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className="bg-white/5 border border-white/10 p-8 rounded-3xl backdrop-blur-lg hover:border-blue-500/30 transition-all duration-300"
+                >
+                  {/* Header Area */}
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 bg-blue-500/10 text-blue-400 rounded-xl">
+                        <service.icon size={24} />
+                      </div>
+                      <h3 className="text-2xl font-bold text-white">
+                        {service.title}
+                      </h3>
+                    </div>
+                    <div className="p-2 border border-white/10 rounded-full text-slate-400 hover:bg-white/10 transition-colors">
+                      <ArrowRight size={20} className="-rotate-50"/>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-slate-400 mb-8 max-w-md">{service.desc}</p>
+
+                  {/* Image Container */}
+                  <div className="w-full h-64 overflow-hidden rounded-2xl border border-white/5">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
+                    />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.section>
 
           {/* --- 6. Portfolio --- */}
