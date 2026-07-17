@@ -13,7 +13,6 @@ import {
   Server,
   Layers3,
   LifeBuoy,
-  GitBranchMinus,
   GitBranchPlus,
   Code2,
   Terminal,
@@ -132,6 +131,8 @@ export default function DevDynamoPage() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [toast, setToast] = useState<{ message: string } | null>(null);
 
+  const icons = [Mail, Phone, Globe, Zap, ShieldCheck];
+
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
     setToast({ message: `${label} copied!` });
@@ -186,7 +187,7 @@ export default function DevDynamoPage() {
             </Badge>
 
             <div className="text-[54px] gap-5 md:text-8xl font-extrabold tracking-tighter">
-              <span className="block yuyu">We Are</span>
+              <span className="block">We Are</span>
               <span className="limelight block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-white to-emerald-400 pb-2">
                 DevDynamo.
               </span>
@@ -317,6 +318,26 @@ export default function DevDynamoPage() {
               ))}
             </motion.div>
           </motion.section>
+
+          <div className="w-full overflow-hidden bg-transparent py-10">
+            <div className="flex [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+              <motion.div
+                animate={{ x: ["0%", "-50%"] }}
+                transition={{
+                  duration: 25,
+                  ease: "linear",
+                  repeat: Infinity,
+                }}
+                className="flex flex-shrink-0 gap-16 px-8"
+              >
+                {[...icons, ...icons].map((Icon, i) => (
+                  <div key={i} className="text-slate-400">
+                    <Icon size={32} strokeWidth={1.5} />
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
 
           <motion.section
             initial="hidden"
