@@ -127,16 +127,26 @@ const teamMembers = [
       "JavaScript",
     ],
     photo: "/team/nimsara.png",
-    position: "Founder"
+    position: "Founder",
   },
   {
     name: "Kaushal Bandara",
     role: "Full-stack Developer",
     about:
       "Builds scalable web and mobile apps. Combines secure backends with hardware integration to connect physical devices to responsive digital interfaces.",
-    skills: ["Java","JavaScript",  "TypeScript","React", "Next.js",  "C", "C++", "Python", "Dart"],
+    skills: [
+      "Java",
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Next.js",
+      "C",
+      "C++",
+      "Python",
+      "Dart",
+    ],
     photo: "/team/Bkaushal.JPG",
-    position: "co-founder"
+    position: "Director",
   },
   {
     name: "Ahamed Rifan",
@@ -145,7 +155,7 @@ const teamMembers = [
       "A detail-oriented QA engineer who believes that quality is not an act, but a habit. Jane ensures every pixel and function is polished to perfection before deployment.",
     skills: ["React", "Next.js", "TypeScript"],
     photo: "/team/img2.avif",
-    position: "co-founder"
+    position: "Director",
   },
 ];
 
@@ -204,7 +214,7 @@ export default function DevDynamoPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#050509] text-white selection:bg-blue-500/30 overflow-x-hidden">
+    <main className="min-h-[100dvh] bg-[#050509] text-white selection:bg-blue-500/30 overflow-x-hidden">
       <AnimatePresence>
         {toast && (
           <motion.div
@@ -258,7 +268,7 @@ export default function DevDynamoPage() {
 
             <div className="text-[54px] gap-5 md:text-8xl font-extrabold tracking-tighter">
               <span className="block">We Are</span>
-              <span className="limelight block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-white to-emerald-400 pb-2">
+              <span className="limelight block bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-400 to-green-500 pb-2">
                 DevDynamo.
               </span>
             </div>
@@ -416,7 +426,10 @@ export default function DevDynamoPage() {
             variants={containerVariants}
             className="space-y-12"
           >
-            <h2 className="text-4xl font-bold text-center">Meet the Team</h2>
+            <span className="w-fit text-indigo-300 bg-indigo-500/10 border border-indigo-500 backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
+              team
+            </span>
+            <h2 className="mt-3 text-4xl font-bold text-start flex sm:flex-row flex-col gap-2">Meet the <span className="limelight block bg-clip-text text-transparent bg-gradient-to-r from- bg-indigo-300 to-indigo-400">Team</span></h2>
 
             <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-8 max-w-8xl mx-auto">
               {teamMembers.map((member) => (
@@ -426,7 +439,9 @@ export default function DevDynamoPage() {
                   className="bg-white/5 border border-white/10 p-6 rounded-3xl backdrop-blur-lg flex flex-col items-center text-center gap-4 hover:border-blue-500/30 transition-all"
                 >
                   <div className="w-full flex flex-col items-end px-2 text-sm">
-                    <span className="border border-yellow-400 text-yellow-300 bg-amber-300/10 px-3 rounded-2xl ">{member.position}</span>
+                    <span className="border border-yellow-400 text-yellow-300 bg-amber-300/10 px-3 rounded-2xl ">
+                      {member.position}
+                    </span>
                   </div>
                   {/* Photo Container */}
                   <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-white/10">
@@ -469,11 +484,14 @@ export default function DevDynamoPage() {
             variants={containerVariants}
             className="space-y-12"
           >
+            <span className="w-fit text-rose-300 bg-rose-500/10 border border-rose-500 backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
+              Stacks
+            </span>
             <motion.h2
               variants={itemVariants}
-              className="text-4xl font-bold tracking-tight text-center"
+              className="text-4xl font-bold tracking-tight text-start flex sm:flex-row flex-col gap-2 mt-3"
             >
-              Tech Stack Arsenal
+              Engineered with <span className="limelight block bg-clip-text text-transparent bg-gradient-to-r from-rose-300 to-purple-400">Modern</span> Tools
             </motion.h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {technologies.map((tech) => (
@@ -506,11 +524,16 @@ export default function DevDynamoPage() {
             variants={containerVariants}
             className="space-y-12"
           >
+            <span className="w-fit text-emerald-300 bg-emerald-500/10 border border-emerald-500 backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
+              How We Work
+            </span>
             <motion.h2
               variants={itemVariants}
-              className="text-4xl font-bold tracking-tight text-center"
+              className="text-4xl font-bold tracking-tight mt-3"
             >
-              The DevDynamo Way
+              An enterprise-grade process,
+              <br /> 
+              <span className="flex sm:flex-row flex-col gap-2">built for absolute <span className="limelight block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">accountability.</span></span>
             </motion.h2>
             <div className="grid grid-cols-2 md:grid-cols-7 gap-4">
               {processSteps.map((step, index) => (
@@ -588,7 +611,7 @@ export default function DevDynamoPage() {
               className="text-4xl font-bold tracking-tight"
             >
               All your Enterprise needs, <br /> in one{" "}
-              <span className="limelight uppercase text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
+              <span className="limelight uppercase text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-purple-400">
                 place
               </span>
             </motion.h1>
@@ -611,7 +634,7 @@ export default function DevDynamoPage() {
                       </h3>
                     </div>
                     <div className="p-2 border border-white/10 rounded-full text-slate-400 hover:bg-white/10 transition-colors">
-                      <ArrowRight size={20} className="-rotate-50"/>
+                      <ArrowRight size={20} className="-rotate-50" />
                     </div>
                   </div>
 
@@ -640,13 +663,16 @@ export default function DevDynamoPage() {
             variants={containerVariants}
             className="space-y-10"
           >
+            <span className="w-fit text-white bg-white/10 border border-white backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
+              projects
+            </span>
             <motion.h2
               variants={itemVariants}
-              className="text-4xl font-bold tracking-tight"
+              className="text-4xl font-bold tracking-tight mt-3"
             >
-              Featured Builds{" "}
+              Featured Projects & Case Studies{" "}
               <span className="inline-block text-slate-400 yuyu text-2xl font-light">
-                (maybe still developing)
+                (maybe still working on ..)
               </span>
             </motion.h2>
             <div className="grid md:grid-cols-2 gap-8">
