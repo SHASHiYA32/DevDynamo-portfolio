@@ -136,6 +136,7 @@ const teamMembers = [
       "Builds scalable web and mobile apps. Combines secure backends with hardware integration to connect physical devices to responsive digital interfaces.",
     skills: ["Java","JavaScript",  "TypeScript","React", "Next.js",  "C", "C++", "Python", "Dart"],
     photo: "/team/Bkaushal.JPG",
+    position: "co-founder"
   },
   {
     name: "Ahamed Rifan",
