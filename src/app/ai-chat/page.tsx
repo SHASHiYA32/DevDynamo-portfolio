@@ -19,11 +19,7 @@ export default function AIChatModal({
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const generateId = () => {
-    return (
-      "msg-" +
-      Date.now().toString(36) + 
-      Math.random().toString(36).substring(2, 9)
-    );
+    return crypto.randomUUID();
   };
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -47,8 +43,11 @@ export default function AIChatModal({
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
 
+    const newId = generateId();
+    console.log("New Message ID:", newId);
+
     setIsLoading(true);
-    const userMsg: Message = { id: generateId(), role: "user", content: input };
+    const userMsg: Message = { id: newId, role: "user", content: input };
 
     const updatedMessages = [...messages, userMsg];
     setMessages(updatedMessages);
@@ -126,7 +125,7 @@ export default function AIChatModal({
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
               {messages.map((m) => (
                 <div
-                  key={m.id}
+                  key={m.id || `msg-${generateId}`}
                   className={`p-3 rounded-2xl text-sm ${m.role === "user" ? "bg-blue-600 ml-auto max-w-[80%]" : "bg-white/5 text-white mr-auto max-w-[80%]"}`}
                 >
                   {m.content}
@@ -135,6 +134,7 @@ export default function AIChatModal({
 
               {isLoading && (
                 <motion.div
+                  key="loading-indicator"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="bg-white/5 mr-auto p-4 rounded-2xl flex gap-1 items-center"

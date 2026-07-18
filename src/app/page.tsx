@@ -128,6 +128,7 @@ const teamMembers = [
       "Java",
       "C#",
       "C++",
+      ".net"
     ],
     photo: "/team/nimsara.png",
     position: "Founder",
@@ -156,8 +157,8 @@ const teamMembers = [
     role: "Testing Engineer, UI/UX Designer",
     about:
       "A detail-oriented QA engineer who believes that quality is not an act, but a habit. Jane ensures every pixel and function is polished to perfection before deployment.",
-    skills: ["React", "Next.js", "TypeScript"],
-    photo: "/team/img2.avif",
+    skills: ["React", "Next.js", "TypeScript", "php", "HTML", "CSS", "C#"],
+    photo: "/team/ahamed.jpeg",
     position: "Director",
   },
 ];
@@ -432,7 +433,12 @@ export default function DevDynamoPage() {
             <span className="uppercase w-fit text-indigo-300 bg-indigo-500/10 border border-indigo-500 backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
               team
             </span>
-            <h2 className="mt-3 text-4xl font-bold text-start flex sm:flex-row flex-col gap-2">Meet the <span className="limelight block bg-clip-text text-transparent bg-gradient-to-r from- bg-indigo-300 to-indigo-400">Team</span></h2>
+            <h2 className="mt-3 text-4xl font-bold text-start flex sm:flex-row flex-col gap-2">
+              Meet the{" "}
+              <span className="limelight block bg-clip-text text-transparent bg-gradient-to-r from- bg-indigo-300 to-indigo-400">
+                Team
+              </span>
+            </h2>
 
             <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-8 max-w-8xl mx-auto">
               {teamMembers.map((member) => (
@@ -494,7 +500,11 @@ export default function DevDynamoPage() {
               variants={itemVariants}
               className="text-4xl font-bold tracking-tight text-start flex sm:flex-row flex-col gap-2 mt-3"
             >
-              Engineered with <span className="limelight block bg-clip-text text-transparent bg-gradient-to-r from-rose-300 to-purple-400">Modern</span> Tools
+              Engineered with{" "}
+              <span className="limelight block bg-clip-text text-transparent bg-gradient-to-r from-rose-300 to-purple-400">
+                Modern
+              </span>{" "}
+              Tools
             </motion.h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {technologies.map((tech) => (
@@ -535,8 +545,13 @@ export default function DevDynamoPage() {
               className="text-4xl font-bold tracking-tight mt-3"
             >
               An enterprise-grade process,
-              <br /> 
-              <span className="flex sm:flex-row flex-col gap-2">built for absolute <span className="limelight block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">accountability.</span></span>
+              <br />
+              <span className="flex sm:flex-row flex-col gap-2">
+                built for absolute{" "}
+                <span className="limelight block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
+                  accountability.
+                </span>
+              </span>
             </motion.h2>
             <div className="grid grid-cols-2 md:grid-cols-7 gap-4">
               {processSteps.map((step, index) => (
@@ -715,7 +730,6 @@ export default function DevDynamoPage() {
             </div>
           </motion.section>
 
-          {/* --- 7. Contact Footer --- */}
           <motion.footer
             initial="hidden"
             whileInView="visible"
