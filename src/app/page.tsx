@@ -426,7 +426,7 @@ export default function DevDynamoPage() {
             variants={containerVariants}
             className="space-y-12"
           >
-            <span className="w-fit text-indigo-300 bg-indigo-500/10 border border-indigo-500 backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
+            <span className="uppercase w-fit text-indigo-300 bg-indigo-500/10 border border-indigo-500 backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
               team
             </span>
             <h2 className="mt-3 text-4xl font-bold text-start flex sm:flex-row flex-col gap-2">Meet the <span className="limelight block bg-clip-text text-transparent bg-gradient-to-r from- bg-indigo-300 to-indigo-400">Team</span></h2>
@@ -484,7 +484,7 @@ export default function DevDynamoPage() {
             variants={containerVariants}
             className="space-y-12"
           >
-            <span className="w-fit text-rose-300 bg-rose-500/10 border border-rose-500 backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
+            <span className="uppercase w-fit text-rose-300 bg-rose-500/10 border border-rose-500 backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
               Stacks
             </span>
             <motion.h2
@@ -524,7 +524,7 @@ export default function DevDynamoPage() {
             variants={containerVariants}
             className="space-y-12"
           >
-            <span className="w-fit text-emerald-300 bg-emerald-500/10 border border-emerald-500 backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
+            <span className="uppercase w-fit text-emerald-300 bg-emerald-500/10 border border-emerald-500 backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
               How We Work
             </span>
             <motion.h2
@@ -603,7 +603,7 @@ export default function DevDynamoPage() {
             variants={containerVariants}
             className="space-y-10 flex flex-col"
           >
-            <span className="w-fit text-purple-300 bg-purple-500/10 border border-purple-500 backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
+            <span className="uppercase w-fit text-purple-300 bg-purple-500/10 border border-purple-500 backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
               services
             </span>
             <motion.h1
@@ -663,7 +663,7 @@ export default function DevDynamoPage() {
             variants={containerVariants}
             className="space-y-10"
           >
-            <span className="w-fit text-white bg-white/10 border border-white backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
+            <span className="uppercase w-fit text-white bg-white/10 border border-white backdrop-blur-sm px-4 py-0.5 rounded-full animate-pulse mb-2">
               projects
             </span>
             <motion.h2
