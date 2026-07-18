@@ -732,7 +732,7 @@ export default function DevDynamoPage() {
 
             <div className="space-y-4 text-slate-300">
               <a
-                href="mailto:devdynamo@dev.com"
+                href={`mailto:${personal[0].value}`}
                 className="flex items-center gap-3 hover:text-blue-400 w-fit"
               >
                 <Mail size={20} /> {personal[1].value}
