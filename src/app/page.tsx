@@ -35,6 +35,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import AIChatButton from "@/components/AI/AIChatButton";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -778,6 +779,7 @@ export default function DevDynamoPage() {
           </motion.footer>
         </div>
       </div>
+      <AIChatButton />
     </main>
   );
 }
