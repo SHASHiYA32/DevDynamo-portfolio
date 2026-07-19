@@ -6,7 +6,6 @@ import {
   Limelight,
 } from "next/font/google";
 import "./globals.css";
-import AIChatButton from "@/components/AI/AIChatButton";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -44,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body
         className={`
           ${poppins.variable}
@@ -55,7 +54,6 @@ export default function RootLayout({
         `}
       >
         {children}
-        <AIChatButton />
       </body>
     </html>
   );
