@@ -9,4 +9,5 @@ export default async function Page() {
   if (!result.hasTemporaryPassword) redirect("/dashboard");
 
   return <NewPasswordPage />;
+  
 }
