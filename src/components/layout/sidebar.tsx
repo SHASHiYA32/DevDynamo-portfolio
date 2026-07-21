@@ -2,20 +2,32 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, Settings, Menu, Users, X } from "lucide-react";
+import { LayoutDashboard, Settings, Menu, Users, X, Layers } from "lucide-react";
 import { useState } from "react";
-
-const menuItems = [
-  { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Employee", href: "/dashboard/employee", icon: Users },
-  { name: "Settings", href: "/dashboard/settings", icon: Settings },
-];
+import { useUserRole } from "@/lib/hook/user";
 
 export default function Sidebar() {
   const pathname = usePathname();
 
+  const { role, loading } = useUserRole();
+  const isAdmin = role === 1;
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const menuItems = [
+    { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
+    {
+      name: "Employee",
+      href: "/dashboard/employee",
+      icon: Users,
+      adminOnly: true,
+    },
+    { name: "Tasks", href: "/dashboard/tasks", icon: Layers },
+    { name: "Settings", href: "/dashboard/settings", icon: Settings },
+  ];
+
+  const visibleItems = menuItems.filter((item) => !item.adminOnly || isAdmin);
 
   return (
     <>
@@ -47,7 +59,7 @@ export default function Sidebar() {
         </div>
 
         <nav className="space-y-1 px-2">
-          {menuItems.map((item) => {
+          {visibleItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
 

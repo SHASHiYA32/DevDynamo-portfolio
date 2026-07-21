@@ -31,6 +31,7 @@ interface EmployeeForm {
   email: string;
   role_id: number | null;
   password: string;
+  phone: number | null;
 }
 
 export function AddEmployeeDialog({ open, onOpenChange }: Props) {
@@ -39,6 +40,7 @@ export function AddEmployeeDialog({ open, onOpenChange }: Props) {
     email: "",
     role_id: null,
     password: "",
+    phone: null,
   });
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -94,7 +96,13 @@ export function AddEmployeeDialog({ open, onOpenChange }: Props) {
     } else {
       toast.success("Employee added successfully!");
       onOpenChange(false);
-      setFormData({ full_name: "", email: "", role_id: null, password: "" });
+      setFormData({
+        full_name: "",
+        email: "",
+        role_id: null,
+        password: "",
+        phone: null,
+      });
       setProgress(0);
     }
 
@@ -135,11 +143,32 @@ export function AddEmployeeDialog({ open, onOpenChange }: Props) {
           </div>
 
           <div className="space-y-2">
+            <Label htmlFor="email">Whatsapp Number</Label>
+            <Input
+              id="phone"
+              type="number"
+              placeholder="0712345678"
+              value={formData.phone ?? ""}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  phone: e.target.value === "" ? null : Number(e.target.value),
+                })
+              }
+            />
+          </div>
+
+          <div className="space-y-2">
             <Label>User Role</Label>
             <Select
-              value={formData.role_id !== null ? formData.role_id.toString() : ""}
+              value={
+                formData.role_id !== null ? formData.role_id.toString() : ""
+              }
               onValueChange={(val) =>
-                setFormData({ ...formData, role_id: val ? parseInt(val, 10) : null })
+                setFormData({
+                  ...formData,
+                  role_id: val ? parseInt(val, 10) : null,
+                })
               }
             >
               <SelectTrigger>
@@ -160,6 +189,7 @@ export function AddEmployeeDialog({ open, onOpenChange }: Props) {
             <div className="gap-2 flex flex-row items-center">
               <Input
                 id="password"
+                readOnly
                 value={formData.password}
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
