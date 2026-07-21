@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
 export async function middleware(request: NextRequest) {
-    console.log("Middleware running:", request.nextUrl.pathname);
-    
+  console.log("Middleware running:", request.nextUrl.pathname);
+
   let response = NextResponse.next();
 
   const supabase = createServerClient(
@@ -29,13 +29,10 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  const publicRoutes = ["/login", "/"];
-
-  const isPublicRoute = publicRoutes.some((route) =>
-    pathname.startsWith(route),
-  );
+  const isPublicRoute = pathname === "/" || pathname === "/login";
 
   if (!user) {
+    // Allow access only to / and /login
     if (!isPublicRoute) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
@@ -43,7 +40,7 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
-  if (pathname.startsWith("/login")) {
+  if (pathname === "/" || pathname === "/login") {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
