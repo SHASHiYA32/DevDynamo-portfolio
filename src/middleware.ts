@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
 export async function middleware(request: NextRequest) {
-    console.log("Middleware running:", request.nextUrl.pathname);
-    
+  console.log("Middleware running:", request.nextUrl.pathname);
+
   let response = NextResponse.next();
 
   const supabase = createServerClient(
@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
           });
         },
       },
-    },
+    }
   );
 
   const {
@@ -29,21 +29,18 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  const publicRoutes = ["/login"];
-
-  const isPublicRoute = publicRoutes.some((route) =>
-    pathname.startsWith(route),
-  );
+  const isLanding = pathname === "/";
+  const isLogin = pathname === "/login";
 
   if (!user) {
-    if (!isPublicRoute) {
-      return NextResponse.redirect(new URL("/login", request.url));
+    if (isLanding || isLogin) {
+      return response;
     }
 
-    return response;
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (pathname.startsWith("/login")) {
+  if (isLanding || isLogin) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
@@ -57,7 +54,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/new-password", request.url));
   }
 
-  if (!profile?.tempory_psw && pathname.startsWith("/new-password")) {
+  if (!profile?.tempory_psw && pathname === "/new-password") {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
