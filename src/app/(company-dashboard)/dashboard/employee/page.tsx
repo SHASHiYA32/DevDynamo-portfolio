@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StatCard } from "@/components/employee/stat-card";
 import { AddEmployeeDialog } from "@/components/employee/add-employee-dialog";
 import { ChangePasswordDialog } from "@/components/employee/change-password-dialog";
@@ -36,68 +36,98 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { createClient } from "@/lib/supabase/client";
 
-const initialEmployees = [
-  {
-    id: "1",
-    full_name: "Admin User",
-    email: "admin@devdynamo.com",
-    role: "admin",
-    status: "active",
-    created_at: "2026-01-10",
-  },
-  {
-    id: "2",
-    full_name: "Kasun Perera",
-    email: "kasun@devdynamo.com",
-    role: "manager",
-    status: "active",
-    created_at: "2026-02-15",
-  },
-  {
-    id: "3",
-    full_name: "Nimmi Silva",
-    email: "nimmi@devdynamo.com",
-    role: "staff",
-    status: "deactive",
-    created_at: "2026-03-01",
-  },
-];
+interface Employee {
+  id: string;
+  auth_id: string;
+  full_name: string;
+  email: string;
+  role: string;
+  status: string;
+  temp_password?: string | null;
+  created_at: string;
+}
 
 export default function EmployeeTab() {
-  const [employees, setEmployees] = useState(initialEmployees);
   const [isAddOpen, setIsAddOpen] = useState(false);
 
   const [isPswOpen, setIsPswOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState({ id: "", name: "" });
+  const [selectedUser, setSelectedUser] = useState({ id: "", name: "" , auth_id: ""});
+  const [isCredsOpen, setIsCredsOpen] = useState(false);
+  const [selectedCreds, setSelectedCreds] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [employees, setEmployees] = useState<Employee[]>([]);
+  const [loading, setLoading] = useState(true);
+  const supabase = createClient();
 
   const totalUsers = employees.length;
   const activeUsers = employees.filter((e) => e.status === "active").length;
   const deactiveUsers = employees.filter((e) => e.status === "deactive").length;
   const adminCount = employees.filter((e) => e.role === "admin").length;
 
-  const toggleStatus = (id: string, currentStatus: string) => {
-    const nextStatus = currentStatus === "active" ? "deactive" : "active";
-    setEmployees(
-      employees.map((e) => (e.id === id ? { ...e, status: nextStatus } : e)),
-    );
-    toast.success(`User status changed to ${nextStatus}.`);
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
+
+  const fetchEmployees = async () => {
+    setLoading(true);
+
+    const { data: profiles, error: profileError } = await supabase.from(
+      "user_profiles",
+    ).select(`
+      id,
+      full_name,
+      tempory_psw,
+      auth_id,
+      role:role_id (role)
+    `);
+
+    if (profileError) {
+      toast.error("Failed to load employees");
+      console.error(profileError);
+      setLoading(false);
+      return;
+    }
+
+    const formatted: Employee[] = profiles.map((e: any) => ({
+      id: e.id.toString(),
+      auth_id: e.auth_id,
+      full_name: e.full_name || "Unknown",
+      email: "Email Hidden", 
+      role: (Array.isArray(e.role) ? e.role[0]?.role : e.role?.role) || "staff",
+      status: "active",
+      temp_password: e.tempory_psw,
+      created_at: e.created_at || new Date().toISOString(),
+    }));
+
+    console.log("data" , profiles)
+
+    setEmployees(formatted);
+    setLoading(false);
   };
 
-  const changeRole = (id: string, newRole: string) => {
-    setEmployees(
-      employees.map((e) => (e.id === id ? { ...e, role: newRole } : e)),
-    );
-    toast.success(`User role changed to ${newRole}.`);
+  const showCredentials = (user: any) => {
+    const passwordToDisplay =
+      user.temp_password || user.password || "No password set";
+    setSelectedCreds({ email: user.email, password: passwordToDisplay });
+    setIsCredsOpen(true);
   };
 
-  const deleteUser = (id: string, name: string) => {
-    setEmployees(employees.filter((e) => e.id !== id));
-    toast.error(`${name} has been removed.`);
-  };
-
-  const showCredentials = (email: string) => {
-    alert(`Account Email: ${email}\nPassword: [Encrypted in Auth Database]`);
+  // 3. Helper to copy to clipboard
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast.success("Copied to clipboard!");
   };
 
   return (
@@ -178,15 +208,15 @@ export default function EmployeeTab() {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => showCredentials(row.email)}
+                      onClick={() => showCredentials(row)}
                     >
-                      <Eye className="h-3.5 w-3.5 mr-1" /> View Info
+                      <Eye className="h-3.5 w-3.5 mr-1" /> View
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => {
-                        setSelectedUser({ id: row.id, name: row.full_name });
+                        setSelectedUser({ id: row.id, name: row.full_name, auth_id: row.auth_id });
                         setIsPswOpen(true);
                       }}
                     >
@@ -196,7 +226,7 @@ export default function EmployeeTab() {
                 </TableCell>
                 <TableCell className="text-right">
                   <DropdownMenu>
-                    <DropdownMenuTrigger >
+                    <DropdownMenuTrigger>
                       <div>
                         <MoreVertical className="h-4 w-4" />
                       </div>
@@ -205,9 +235,7 @@ export default function EmployeeTab() {
                       {/* Wrap top-level items in a group to satisfy context */}
                       <DropdownMenuGroup>
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                          onClick={() => toggleStatus(row.id, row.status)}
-                        >
+                        <DropdownMenuItem>
                           {row.status === "active"
                             ? "Deactivate Account"
                             : "Activate Account"}
@@ -218,21 +246,7 @@ export default function EmployeeTab() {
 
                       <DropdownMenuGroup>
                         <DropdownMenuLabel>Change Role</DropdownMenuLabel>
-                        <DropdownMenuItem
-                          onClick={() => changeRole(row.id, "admin")}
-                        >
-                          Make Admin
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onClick={() => changeRole(row.id, "manager")}
-                        >
-                          Make Manager
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onClick={() => changeRole(row.id, "staff")}
-                        >
-                          Make Staff
-                        </DropdownMenuItem>
+                        <DropdownMenuItem>Make Admin</DropdownMenuItem>
                       </DropdownMenuGroup>
 
                       <DropdownMenuSeparator />
@@ -240,10 +254,7 @@ export default function EmployeeTab() {
                       <DropdownMenuItem onClick={() => alert("View Profile")}>
                         View Profile
                       </DropdownMenuItem>
-                      <DropdownMenuItem
-                        className="text-destructive"
-                        onClick={() => deleteUser(row.id, row.full_name)}
-                      >
+                      <DropdownMenuItem className="text-destructive">
                         Delete User
                       </DropdownMenuItem>
                     </DropdownMenuContent>
@@ -262,7 +273,37 @@ export default function EmployeeTab() {
         onOpenChange={setIsPswOpen}
         employeeName={selectedUser.name}
         employeeId={selectedUser.id}
+        authId={selectedUser.auth_id}
+        onSuccess={fetchEmployees}
       />
+
+      <Dialog open={isCredsOpen} onOpenChange={setIsCredsOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Account Credentials</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-1">
+              <label className="text-sm font-medium">Email</label>
+              <div className="flex gap-2">
+                <Input value={selectedCreds.email} readOnly />
+                <Button onClick={() => copyToClipboard(selectedCreds.email)}>
+                  Copy
+                </Button>
+              </div>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium">Password</label>
+              <div className="flex gap-2">
+                <Input type="text" value={selectedCreds.password} readOnly />
+                <Button onClick={() => copyToClipboard(selectedCreds.password)}>
+                  Copy
+                </Button>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

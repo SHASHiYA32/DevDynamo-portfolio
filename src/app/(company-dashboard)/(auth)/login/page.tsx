@@ -26,7 +26,6 @@ export default function Login() {
         />
       </div>
       <div className=" z-10 w-full max-w-md backdrop-blur-sm border border-neutral-800 p-8 rounded-2xl shadow-2xl">
-        {/* Header */}
         <div className="mb-8 text-center">
           <h1 className="text-2xl font-bold tracking-tight">DevDynamo</h1>
           <p className="text-neutral-400 text-sm mt-2">
@@ -34,13 +33,13 @@ export default function Login() {
           </p>
         </div>
 
-        {/* Form */}
         <form
           className="space-y-6"
           onSubmit={async (e) => {
             e.preventDefault();
 
             setLoading(true);
+            setError("");
 
             const form = new FormData(e.currentTarget);
 
@@ -62,6 +61,14 @@ export default function Login() {
             }
           }}
         >
+          {error && (
+            <div className="w-full p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-500 text-sm text-center">
+              {error === "Invalid login credentials"
+                ? "Invalid email or password."
+                : error}
+            </div>
+          )}
+
           <div>
             <label className="block text-xs font-medium text-neutral-400 mb-2 uppercase tracking-wider">
               Work Email
