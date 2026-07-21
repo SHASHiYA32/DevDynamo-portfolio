@@ -29,7 +29,7 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  const publicRoutes = ["/login"];
+  const publicRoutes = ["/login", "/"];
 
   const isPublicRoute = publicRoutes.some((route) =>
     pathname.startsWith(route),
