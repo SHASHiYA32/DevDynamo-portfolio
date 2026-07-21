@@ -29,18 +29,21 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  const isPublicRoute = pathname === "/" || pathname === "/login";
+  const isLanding = pathname === "/";
+  const isLogin = pathname === "/login";
 
+  // Not logged in
   if (!user) {
-    // Allow access only to / and /login
-    if (!isPublicRoute) {
-      return NextResponse.redirect(new URL("/login", request.url));
+    // Allow access only to landing page and login
+    if (isLanding || isLogin) {
+      return response;
     }
 
-    return response;
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (pathname === "/" || pathname === "/login") {
+  // Logged in users cannot access landing or login
+  if (isLanding || isLogin) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
@@ -50,11 +53,13 @@ export async function middleware(request: NextRequest) {
     .eq("auth_id", user.id)
     .single();
 
+  // Force password change
   if (profile?.tempory_psw && pathname !== "/new-password") {
     return NextResponse.redirect(new URL("/new-password", request.url));
   }
 
-  if (!profile?.tempory_psw && pathname.startsWith("/new-password")) {
+  // Prevent returning to new-password after changing it
+  if (!profile?.tempory_psw && pathname === "/new-password") {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
