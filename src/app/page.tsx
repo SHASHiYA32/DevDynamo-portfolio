@@ -781,5 +781,16 @@ export default function DevDynamoPage() {
       </div>
       <AIChatButton />
     </main>
+    /* 
+        pppppp       pppp  pppp  pppppp       pppppp
+        ppppppp      pppp  pppp  ppppppp     ppppppp
+        pppp ppp     pppp        pppp ppp   ppp pppp
+        pppp  ppp    pppp  pppp  pppp  ppp ppp  pppp
+        pppp   ppp   pppp  pppp  pppp   ppppp   pppp
+        pppp    ppp  pppp  pppp  pppp           pppp
+        pppp     ppp pppp  pppp  pppp           pppp
+        pppp      ppppppp  pppp  pppp           pppp
+        pppp       pppppp  pppp  pppp           pppp
+        */
   );
 }
