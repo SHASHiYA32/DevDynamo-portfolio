@@ -15,6 +15,8 @@ import {
   Edit,
   Trash2,
   Shield,
+  CheckCircle2,
+  AlertCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -90,11 +92,22 @@ export default function EmployeeTab() {
       full_name,
       tempory_psw,
       auth_id,
+      email,
+      status,
       role:role_id (role)
     `);
 
     if (profileError) {
-      toast.error("Failed to load employees");
+      toast.custom((t) => (
+        <div className="flex items-center gap-3 w-full max-w-sm rounded-2xl bg-zinc-900/80 dark:bg-zinc-900/80 backdrop-blur-2xl border border-white/10 px-4 py-3.5 shadow-[0_20px_50px_rgba(0,0,0,._3)] text-white">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose-500/20 text-rose-400">
+            <AlertCircle className="h-4 w-4" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-semibold tracking-tight">Failed to load employees</span>
+          </div>
+        </div>
+      ));
       console.error(profileError);
       setLoading(false);
       return;
@@ -104,9 +117,9 @@ export default function EmployeeTab() {
       id: e.id.toString(),
       auth_id: e.auth_id,
       full_name: e.full_name || "Unknown",
-      email: "Email Hidden", 
+      email: e.email, 
       role: (Array.isArray(e.role) ? e.role[0]?.role : e.role?.role) || "staff",
-      status: "active",
+      status: e.status,
       temp_password: e.tempory_psw,
       created_at: e.created_at || new Date().toISOString(),
     }));
@@ -119,7 +132,7 @@ export default function EmployeeTab() {
 
   const showCredentials = (user: any) => {
     const passwordToDisplay =
-      user.temp_password || user.password || "No password set";
+      user.temp_password || user.password || "No tempory password set";
     setSelectedCreds({ email: user.email, password: passwordToDisplay });
     setIsCredsOpen(true);
   };
@@ -127,7 +140,16 @@ export default function EmployeeTab() {
   // 3. Helper to copy to clipboard
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success("Copied to clipboard!");
+    toast.custom((t) => (
+      <div className="flex items-center gap-3 w-full max-w-sm rounded-2xl bg-zinc-900/80 dark:bg-zinc-900/80 backdrop-blur-2xl border border-white/10 px-4 py-3.5 shadow-[0_20px_50px_rgba(0,0,0,0.3)] text-white transition-all">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400 shadow-inner">
+          <CheckCircle2 className="h-4 w-4" />
+        </div>
+        <div className="flex flex-col">
+          <span className="text-sm font-semibold tracking-tight">Copied to clipboard!</span>
+        </div>
+      </div>
+    ));
   };
 
   return (
@@ -199,6 +221,7 @@ export default function EmployeeTab() {
                 <TableCell>
                   <Badge
                     variant={row.status === "active" ? "success" : "outline"}
+                    className="uppercase"
                   >
                     {row.status}
                   </Badge>

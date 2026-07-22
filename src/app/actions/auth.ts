@@ -18,10 +18,12 @@ export async function createEmployee(data: any) {
     .insert([
       {
         full_name: data.full_name,
+        email: data.email,
         tempory_psw: data.password,
         auth_id: authData.user.id,
         role_id: data.role_id,
         phone: data.phone,
+        status: "pending"
       },
     ]);
 
@@ -55,7 +57,7 @@ export async function updateNewPassword(password: string) {
 
   const { error: profileError } = await adminClient
     .from("user_profiles")
-    .update({ tempory_psw: null })
+    .update({ tempory_psw: null, status: "active" })
     .eq("auth_id", user.id);
 
   if (profileError) return { error: "Failed to clear temporary status." };
