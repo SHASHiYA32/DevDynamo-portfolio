@@ -5,10 +5,14 @@ export async function fetchTasks(filters: any, isAdmin: boolean) {
 
   let query = supabase.from("tasks").select(`
       *,
-      projects!tasks_project_id_fkey(
-      id,
-      project
-    )
+      projects:project_id (
+        id,
+        project_name
+      ),
+      user_profiles:user_profile_id (
+        id,
+        full_name
+      )
     `);
 
   if (!isAdmin) {
@@ -17,7 +21,28 @@ export async function fetchTasks(filters: any, isAdmin: boolean) {
     } = await supabase.auth.getUser();
 
     if (user) {
-      query = query.eq("user_profile_id", user.id);
+      const { data: profile } = await supabase
+        .from("user_profiles")
+        .select(
+          `
+          id,
+          full_name,
+          role:role_id (
+            role
+          )
+        `,
+        )
+        .eq("auth_id", user.id)
+        .single();
+
+      const roleData = profile?.role as any;
+      const roleName = Array.isArray(roleData)
+        ? roleData[0]?.role
+        : roleData?.role;
+
+      if (roleName !== "admin") {
+        query = query.eq("user_profile_id", profile?.id);
+      }
     }
   }
 
@@ -32,35 +57,9 @@ export async function fetchTasks(filters: any, isAdmin: boolean) {
   const { data, error } = await query;
 
   if (error) {
-    console.error(error);
-    return {
-      data: null,
-      error,
-    };
+    console.error("Error fetching tasks:", error);
+    return { data: null, error };
   }
 
-  const tasksWithProfiles = await Promise.all(
-    (data || []).map(async (task) => {
-      const { data: profile } = await supabase
-        .from("user_profiles")
-        .select(
-          `
-          id,
-          full_name
-        `,
-        )
-        .eq("auth_id", task.user_profile_id)
-        .single();
-
-      return {
-        ...task,
-        user_profiles: profile,
-      };
-    }),
-  );
-
-  return {
-    data: tasksWithProfiles,
-    error: null,
-  };
+  return { data, error: null };
 }

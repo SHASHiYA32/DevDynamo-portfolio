@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/select";
 import { createEmployee } from "@/app/actions/auth";
 import { getRoles } from "@/app/actions/roles";
+import { AlertCircle, CheckCircle2, Trash2 } from "lucide-react";
 
 interface Props {
   open: boolean;
@@ -92,9 +93,35 @@ export function AddEmployeeDialog({ open, onOpenChange }: Props) {
     const result = await createEmployee(formData);
 
     if (result?.error) {
-      toast.error(result.error);
+      toast.custom((t) => (
+        <div className="flex items-center gap-3 w-full max-w-sm rounded-2xl bg-zinc-900/80 backdrop-blur-2xl border border-white/10 px-4 py-3.5 shadow-[0_20px_50px_rgba(0,0,0,0.3)] text-white">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose-500/20 text-rose-400">
+            <AlertCircle className="h-4 w-4" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-semibold tracking-tight">
+              Something went wrong!
+            </span>
+            <span className="text-xs text-zinc-400">{result.error}</span>
+          </div>
+        </div>
+      ));
     } else {
-      toast.success("Employee added successfully!");
+      toast.custom((t) => (
+        <div className="flex items-center gap-3 w-full max-w-sm rounded-2xl bg-zinc-900/80 backdrop-blur-2xl border border-white/10 px-4 py-3.5 shadow-[0_20px_50px_rgba(0,0,0,0.3)] text-white">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400 shadow-inner">
+          <CheckCircle2 className="h-4 w-4" />
+        </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-semibold tracking-tight">
+              Employee added Successfully
+            </span>
+            <span className="text-xs text-zinc-400">
+              You can copy login credentials now
+            </span>
+          </div>
+        </div>
+      ));
       onOpenChange(false);
       setFormData({
         full_name: "",

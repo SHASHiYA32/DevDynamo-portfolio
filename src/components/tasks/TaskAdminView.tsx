@@ -35,7 +35,7 @@ export interface Task {
   } | null;
 
   projects?: {
-    project: string;
+    project_name: string;
   } | null;
 }
 
@@ -47,7 +47,7 @@ export default function TaskAdminView() {
   const [open, setOpen] = useState(false);
 
   const [projects, setProjects] = useState<
-    { id: number; project: string | null }[]
+    { id: number; project_name: string | null }[]
   >([]);
 
   const [employees, setEmployees] = useState<
@@ -55,14 +55,14 @@ export default function TaskAdminView() {
   >([]);
 
   const [taskData, setTaskData] = useState<{
-  task_name: string;
-  project_id: string;
-  user_profile_id: string;
-}>({
-  task_name: "",
-  project_id: "",
-  user_profile_id: "",
-});
+    task_name: string;
+    project_id: string;
+    user_profile_id: string;
+  }>({
+    task_name: "",
+    project_id: "",
+    user_profile_id: "",
+  });
 
   const [filters, setFilters] = useState({
     progress: "",
@@ -73,14 +73,14 @@ export default function TaskAdminView() {
   const fetchTaskOptions = async () => {
     const { data: projectData, error: projectError } = await supabase
       .from("projects")
-      .select("id, project")
+      .select("id, project_name")
       .order("created_at", {
         ascending: false,
       });
 
     const { data: employeeData, error: employeeError } = await supabase
       .from("user_profiles")
-      .select("id, full_name")
+      .select("id, full_name, email")
       .order("created_at", {
         ascending: false,
       });
@@ -108,6 +108,28 @@ export default function TaskAdminView() {
     setTasks((data as Task[]) || []);
     console.log("TASK DATA:", data);
     setLoading(false);
+  };
+
+  const handleCreateTask = async () => {
+    const { error } = await supabase.from("tasks").insert([
+      {
+        task_name: taskData.task_name,
+        project_id: taskData.project_id ? taskData.project_id : null,
+        user_profile_id: taskData.user_profile_id
+          ? taskData.user_profile_id
+          : null,
+        progress: "in-progress",
+        status: "active",
+      },
+    ]);
+
+    if (error) {
+      console.error("Error creating task:", error);
+    } else {
+      setOpen(false);
+      setTaskData({ task_name: "", project_id: "", user_profile_id: "" });
+      loadTasks();
+    }
   };
 
   useEffect(() => {
@@ -139,7 +161,7 @@ export default function TaskAdminView() {
                 shadow-lg
                 hover:scale-105
                 transition
-            "
+              "
         >
           <Plus size={18} />
           Add Task
@@ -150,12 +172,7 @@ export default function TaskAdminView() {
       <div className="grid gap-4 md:grid-cols-3">
         <Card className="border bg-gradient-to-br from-background to-muted/40">
           <CardContent className="p-6 flex items-center gap-4">
-            <div
-              className="
-            p-3 rounded-xl 
-            bg-primary/10
-            "
-            >
+            <div className="p-3 rounded-xl bg-primary/10">
               <ListTodo className="text-primary" />
             </div>
 
@@ -181,7 +198,7 @@ export default function TaskAdminView() {
             <div>
               <p className="text-sm text-muted-foreground">Projects</p>
 
-              <h2 className="text-2xl font-bold">--</h2>
+              <h2 className="text-2xl font-bold">{projects.length || "--"}</h2>
             </div>
           </CardContent>
         </Card>
@@ -200,7 +217,7 @@ export default function TaskAdminView() {
             <div>
               <p className="text-sm text-muted-foreground">Members</p>
 
-              <h2 className="text-2xl font-bold">--</h2>
+              <h2 className="text-2xl font-bold">{employees.length || "--"}</h2>
             </div>
           </CardContent>
         </Card>
@@ -297,7 +314,7 @@ export default function TaskAdminView() {
 
                     <td>{task.user_profiles?.full_name ?? "Unassigned"}</td>
 
-                    <td>{task.projects?.project || "No Project"}</td>
+                    <td>{task.projects?.project_name || "No Project"}</td>
 
                     <td>
                       <Badge
@@ -328,9 +345,16 @@ export default function TaskAdminView() {
             <div className="space-y-2">
               <Label>Task Name</Label>
 
-              <Input placeholder="Fix employee dashboard bugs" />
+              <Input
+                placeholder="Fix employee dashboard bugs"
+                value={taskData.task_name}
+                onChange={(e) =>
+                  setTaskData({ ...taskData, task_name: e.target.value })
+                }
+              />
             </div>
 
+            {/* Select Project */}
             <div className="space-y-2">
               <Label>Select Project</Label>
 
@@ -343,20 +367,24 @@ export default function TaskAdminView() {
                   })
                 }
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Choose project" />
+                <SelectTrigger className={`w-full`}>
+                  <SelectValue placeholder="Choose project">
+                    {projects.find((p) => String(p.id) === taskData.project_id)
+                      ?.project_name || "Choose project"}
+                  </SelectValue>
                 </SelectTrigger>
 
                 <SelectContent>
                   {projects.map((project) => (
                     <SelectItem key={project.id} value={String(project.id)}>
-                      {project.project}
+                      {project.project_name}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
 
+            {/* Assign Employee */}
             <div className="space-y-2">
               <Label>Assign Employee</Label>
 
@@ -369,8 +397,12 @@ export default function TaskAdminView() {
                   })
                 }
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Choose employee" />
+                <SelectTrigger className={`w-full`}>
+                  <SelectValue placeholder="Choose employee">
+                    {employees.find(
+                      (e) => String(e.id) === taskData.user_profile_id,
+                    )?.full_name || "Choose employee"}
+                  </SelectValue>
                 </SelectTrigger>
 
                 <SelectContent>
@@ -384,12 +416,13 @@ export default function TaskAdminView() {
             </div>
 
             <Button
+              onClick={handleCreateTask}
               className="
-        w-full
-        bg-gradient-to-r
-        from-primary
-        to-primary/70
-        "
+              w-full
+              bg-gradient-to-r
+              from-primary
+              to-primary/70
+              "
             >
               Create Task
             </Button>
