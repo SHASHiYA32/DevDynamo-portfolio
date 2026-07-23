@@ -3,7 +3,9 @@ import { createClient } from "@/lib/supabase/client";
 export async function fetchTasks(filters: any, isAdmin: boolean) {
   const supabase = createClient();
 
-  let query = supabase.from("tasks").select(`
+  let query = supabase
+  .from("tasks")
+  .select(`
       *,
       projects:project_id (
         id,
@@ -13,7 +15,8 @@ export async function fetchTasks(filters: any, isAdmin: boolean) {
         id,
         full_name
       )
-    `);
+    `)
+    .neq("status", "inactive")
 
   if (!isAdmin) {
     const {
