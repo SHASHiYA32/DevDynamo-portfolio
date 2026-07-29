@@ -109,6 +109,16 @@ const projects = [
     tech: "React/Tailwind",
     link: "https://next-js-todo-app-gamma-five.vercel.app/",
   },
+  {
+    title: "POS System (Point of sales)",
+    tech: "React/Tailwind",
+    link: "https://pos-system-livid-pi.vercel.app/",
+  },
+  {
+    title: "E-Commerce-application",
+    tech: "React/Tailwind",
+    link: "aurex-production.vercel.app",
+  },
 ];
 
 const teamMembers = [
