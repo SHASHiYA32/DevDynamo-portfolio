@@ -117,7 +117,7 @@ const projects = [
   {
     title: "E-Commerce-application",
     tech: "React/Tailwind",
-    link: "aurex-production.vercel.app",
+    link: "https://aurex-production.vercel.app/",
   },
 ];
 
