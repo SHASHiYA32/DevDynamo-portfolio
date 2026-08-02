@@ -143,7 +143,7 @@ const teamMembers = [
       "C++",
       ".net"
     ],
-    photo: "/team/nimsara.png",
+    photo: "https://zwrpnlrlzdlgdilbxzku.supabase.co/storage/v1/object/public/employee_img/nimsara.png",
     position: "Founder",
     portfolio: "https://shashintha-nimsara.vercel.app",
   },
@@ -163,7 +163,7 @@ const teamMembers = [
       "Python",
       "Dart",
     ],
-    photo: "/team/Bkaushal.jpg",
+    photo: "https://zwrpnlrlzdlgdilbxzku.supabase.co/storage/v1/object/public/employee_img/Bkaushal.jpg",
     position: "Director",
     portfolio: "",
   },
@@ -173,7 +173,7 @@ const teamMembers = [
     about:
       "A detail-oriented QA engineer who believes that quality is not an act, but a habit. Jane ensures every pixel and function is polished to perfection before deployment.",
     skills: ["React", "Next.js", "TypeScript", "php", "HTML", "CSS", "C#"],
-    photo: "/team/ahamed.jpeg",
+    photo: "https://zwrpnlrlzdlgdilbxzku.supabase.co/storage/v1/object/public/employee_img/ahamed.jpeg",
     position: "Director",
     portfolio: "",
   },
