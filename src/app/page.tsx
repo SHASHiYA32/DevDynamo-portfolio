@@ -165,7 +165,7 @@ const teamMembers = [
     ],
     photo: "https://zwrpnlrlzdlgdilbxzku.supabase.co/storage/v1/object/public/employee_img/Bkaushal.jpg",
     position: "Director",
-    portfolio: "",
+    portfolio: "https://kaushalbandara-portfolio.ai.studio",
   },
   {
     name: "Ahamed Rifan",
