@@ -31,6 +31,8 @@ import {
   Smartphone,
   ArrowUpRight,
   CodeXml,
+  MoveRight,
+  MoveRightIcon,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -143,6 +145,7 @@ const teamMembers = [
     ],
     photo: "/team/nimsara.png",
     position: "Founder",
+    portfolio: "https://shashintha-nimsara.vercel.app",
   },
   {
     name: "Kaushal Bandara",
@@ -160,8 +163,9 @@ const teamMembers = [
       "Python",
       "Dart",
     ],
-    photo: "/team/Bkaushal.JPG",
+    photo: "/team/Bkaushal.jpg",
     position: "Director",
+    portfolio: "",
   },
   {
     name: "Ahamed Rifan",
@@ -171,6 +175,7 @@ const teamMembers = [
     skills: ["React", "Next.js", "TypeScript", "php", "HTML", "CSS", "C#"],
     photo: "/team/ahamed.jpeg",
     position: "Director",
+    portfolio: "",
   },
 ];
 
@@ -458,7 +463,8 @@ export default function DevDynamoPage() {
                   variants={itemVariants}
                   className="bg-white/5 border border-white/10 p-6 rounded-3xl backdrop-blur-lg flex flex-col items-center text-center gap-4 hover:border-blue-500/30 transition-all"
                 >
-                  <div className="w-full flex flex-col items-end px-2 text-sm">
+                  <div className="w-full flex flex-row-reverse justify-between px-2 text-sm">
+                    <a href={member.portfolio} className="flex flex-row items-center gap-2 hover:text-blue-500 transition-all">Portfolio <ArrowUpRight className="h-4 w-4"/></a>
                     <span className="border border-yellow-400 text-yellow-300 bg-amber-300/10 px-3 rounded-2xl ">
                       {member.position}
                     </span>
