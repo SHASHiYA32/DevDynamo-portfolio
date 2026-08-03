@@ -165,7 +165,7 @@ const teamMembers = [
     ],
     photo: "https://zwrpnlrlzdlgdilbxzku.supabase.co/storage/v1/object/public/employee_img/Bkaushal.jpg",
     position: "Director",
-    portfolio: "https://kaushalbandara-portfolio.ai.studio",
+    portfolio: "https://kaushalbandara-portfolio.vercel.app",
   },
   {
     name: "Ahamed Rifan",
@@ -175,7 +175,7 @@ const teamMembers = [
     skills: ["React", "Next.js", "TypeScript", "php", "HTML", "CSS", "C#"],
     photo: "https://zwrpnlrlzdlgdilbxzku.supabase.co/storage/v1/object/public/employee_img/ahamed.jpeg",
     position: "Director",
-    portfolio: "",
+    portfolio: "#",
   },
 ];
 
