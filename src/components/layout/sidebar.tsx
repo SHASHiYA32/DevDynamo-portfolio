@@ -10,6 +10,8 @@ import {
   X,
   Layers,
   LogOut,
+  MessagesSquare,
+  FolderBookmark,
 } from "lucide-react";
 import { useState } from "react";
 import { useUserRole } from "@/lib/hook/user";
@@ -35,6 +37,8 @@ export default function Sidebar() {
       adminOnly: true,
     },
     { name: "Tasks", href: "/dashboard/tasks", icon: Layers },
+    { name: "Projects", href: "/dashboard/projects", icon: FolderBookmark },
+    { name: "Team Chat", href: "https://devdynamo-chat.vercel.app/", icon: MessagesSquare },
     { name: "Settings", href: "/dashboard/settings", icon: Settings },
   ];
 
