@@ -147,7 +147,7 @@ const teamMembers = [
     position: "Founder",
     portfolio: "https://shashintha-nimsara.vercel.app",
   },
-  {
+  /*{
     name: "Kaushal Bandara",
     role: "Full-stack Developer",
     about:
@@ -176,7 +176,7 @@ const teamMembers = [
     photo: "https://zwrpnlrlzdlgdilbxzku.supabase.co/storage/v1/object/public/employee_img/ahamed.jpeg",
     position: "Director",
     portfolio: "#",
-  },
+  },*/
 ];
 
 const serviceItems = [
